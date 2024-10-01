@@ -4,12 +4,13 @@ import Sidebar from '../components/Sidebar';
 import ProductList from '../components/ProductList';
 import shoes from '../data/shoes.json';
 import clothes from '../data/clothes.json';
-import FeatureFlag from '../components/FeatureFlag';
+import {useFlags} from 'launchdarkly-react-client-sdk';
 import Head from 'next/head';
 import Promotion from '../components/Promotion';
 
 const Home = () => {
   const allProducts = [...shoes, ...clothes];
+  const { newPromoBanner } = useFlags();
 
   return (
     <Layout>
@@ -26,10 +27,8 @@ const Home = () => {
 
       {/* Main Content */}
       <main className="flex-1 p-4">
-        {/* Feature Flag Section */}
-        <FeatureFlag flagKey="new-promo-banner">
-          <Promotion />
-        </FeatureFlag>
+        {/* Promotion Section */}
+        {newPromoBanner && <Promotion />}
 
         {/* Products Section */}
         <section>

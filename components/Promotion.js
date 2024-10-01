@@ -1,4 +1,5 @@
 
+
 const Promotion = () => (
   <section className="py-2 px-4 bg-gray-100">
     <p className="mt-2 justify-center text-center text-gray-700">

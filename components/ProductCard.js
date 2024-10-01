@@ -6,7 +6,7 @@ const ProductCard = ({ product }) => {
   const { addToCart } = useContext(CartContext);
 
   return (
-    <div className=" p-4">
+    <div className="p-4">
       <div className="relative">
         <Image
           src={product.image}
@@ -14,7 +14,7 @@ const ProductCard = ({ product }) => {
           layout="responsive"
           width={16} 
           height={9}
-          objectFit="cover"
+          style={{ objectFit: 'cover' }}
         />
       </div>
       <h3 className="mt-2 text-lg font-semibold">{product.name}</h3>
