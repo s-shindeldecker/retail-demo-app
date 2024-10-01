@@ -17,7 +17,7 @@ const ChatbotModal = ({ onClose }) => {
   }, [onClose]);
 
   return createPortal(
-    <div className="fixed inset-0 z-50 flex items-end justify-center md:items-center">
+    <div className="fixed inset-0 z-50 flex items-end justify-end pb-24 mr-6 ml-6">
       {/* Modal Overlay */}
       <div
         className="fixed inset-0 bg-black opacity-50"
@@ -26,7 +26,7 @@ const ChatbotModal = ({ onClose }) => {
 
       {/* Modal Content */}
       <motion.div
-        className="relative bg-white w-full md:w-1/2 h-3/4 md:h-3/4 p-4 overflow-auto z-50 rounded-t-lg md:rounded-lg"
+        className="relative bg-white w-full md:w-1/2  p-4 overflow-auto z-50 rounded-t-lg md:rounded-lg"
         initial={{ y: '100%' }}
         animate={{ y: 0 }}
         exit={{ y: '100%' }}

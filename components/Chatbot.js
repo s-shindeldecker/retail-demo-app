@@ -1,10 +1,11 @@
 // components/Chatbot.js
-import { useState } from 'react';
-import axios from 'axios';
-import ProductCard from './ProductCard';
+import { useState } from "react";
+import axios from "axios";
+import ProductCard from "./ProductCard";
+import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
 
 const Chatbot = () => {
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   const [recommendations, setRecommendations] = useState([]);
 
   const handleSubmit = async (e) => {
@@ -12,10 +13,10 @@ const Chatbot = () => {
     if (!input) return;
 
     try {
-      const res = await axios.post('/api/recommendations', { input });
+      const res = await axios.post("/api/recommendations", { input });
       setRecommendations(res.data);
     } catch (error) {
-      console.error('Error fetching recommendations:', error);
+      console.error("Error fetching recommendations:", error);
     }
   };
 
@@ -23,21 +24,24 @@ const Chatbot = () => {
     <div className="h-full flex flex-col">
       {/* Chat Header */}
       <div className="mb-4">
-        <h2 className="text-2xl font-semibold">Chat with Us</h2>
+        <h2 className="text-2xl font-semibold">Your AI Assistant</h2>
       </div>
       {/* Chat Body */}
       <div className="flex-1 overflow-auto">
         {/* Recommendations */}
-        {recommendations.length > 0 && (
-          <div className="mt-4">
-            <h3 className="text-xl font-semibold mb-2">Recommendations:</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {recommendations.map((item) => (
-                <ProductCard key={item.id} product={item} />
-              ))}
-            </div>
+        {recommendations.map((item) => (
+          <div key={item.id} className="flex items-center">
+          <ProductCard product={item} />
+          <div className="ml-2 flex flex-col items-center">
+            <button className="text-green-500 hover:text-green-700">
+              <FaThumbsUp />
+            </button>
+            <button className="mt-2 text-red-500 hover:text-red-700">
+              <FaThumbsDown />
+            </button>
           </div>
-        )}
+        </div>
+      ))}
       </div>
       {/* Chat Input */}
       <form onSubmit={handleSubmit} className="mt-4 flex">

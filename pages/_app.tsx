@@ -30,7 +30,6 @@ function MyApp({ Component, pageProps }) {
       key: Intl.DateTimeFormat().resolvedOptions().timeZone,
       name: Intl.DateTimeFormat().resolvedOptions().timeZone,
       timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-      country: "US",
     },
     audience: {
       key: uuidv4().slice(0, 10),
