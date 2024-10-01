@@ -1,0 +1,26 @@
+[
+  {
+    "id": 101,
+    "name": "Comfort Tee",
+    "type": "Clothing",
+    "price": 30,
+    "colors": [
+      "Black",
+      "White"
+    ],
+    "image": "/images/comfort-tee.jpg",
+    "description": "Soft and comfortable t-shirt."
+  },
+  {
+    "id": 102,
+    "name": "Running Shorts",
+    "type": "Clothing",
+    "price": 45,
+    "colors": [
+      "Blue",
+      "Green"
+    ],
+    "image": "/images/running-shorts.jpg",
+    "description": "Lightweight shorts for running."
+  }
+]

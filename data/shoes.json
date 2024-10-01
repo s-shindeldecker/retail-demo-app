@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "name": "Air Runner",
+    "type": "Shoe",
+    "price": 150,
+    "colors": [
+      "Red",
+      "Blue",
+      "Black"
+    ],
+    "image": "/images/air-runner.jpg",
+    "description": "Experience the ultimate comfort with Air Runner."
+  },
+  {
+    "id": 2,
+    "name": "Flex Sneakers",
+    "type": "Shoe",
+    "price": 120,
+    "colors": [
+      "White",
+      "Gray"
+    ],
+    "image": "/images/flex-sneakers.jpg",
+    "description": "Flexibility and style combined."
+  }
+]
