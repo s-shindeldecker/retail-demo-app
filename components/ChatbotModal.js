@@ -1,10 +1,21 @@
 // components/ChatbotModal.js
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import Chatbot from './Chatbot';
 import { motion } from 'framer-motion';
 
 const ChatbotModal = ({ onClose }) => {
+  const [chatData, setChatData] = useState(() => {
+    // Retrieve saved chat data from session storage
+    const savedData = sessionStorage.getItem('chatData');
+    return savedData ? JSON.parse(savedData) : { input: "", recommendations: [] };
+  });
+
+  // Save chat data to session storage whenever it changes
+  useEffect(() => {
+    sessionStorage.setItem('chatData', JSON.stringify(chatData));
+  }, [chatData]);
+
   // Close modal on Escape key press
   useEffect(() => {
     const handleEscape = (event) => {
@@ -26,10 +37,10 @@ const ChatbotModal = ({ onClose }) => {
 
       {/* Modal Content */}
       <motion.div
-        className="relative bg-white w-full md:w-1/2  p-4 overflow-auto z-50 rounded-t-lg md:rounded-lg"
+        className="relative bg-white w-full md:w-1/2 h-3/4 md:h-3/4 p-4 overflow-auto z-50 rounded-t-lg md:rounded-lg"
         initial={{ y: '100%' }}
         animate={{ y: 0 }}
-        exit={{ y: '100%' }}
+        exit={{ y: '0%' }}
         transition={{ type: 'spring', stiffness: 50 }}
       >
         {/* Close Button */}
@@ -52,7 +63,7 @@ const ChatbotModal = ({ onClose }) => {
           </svg>
         </button>
         {/* Chatbot Component */}
-        <Chatbot />
+        <Chatbot chatData={chatData} setChatData={setChatData} />
       </motion.div>
     </div>,
     document.body

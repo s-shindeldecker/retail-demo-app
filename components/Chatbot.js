@@ -4,9 +4,8 @@ import axios from "axios";
 import ProductCard from "./ProductCard";
 import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
 
-const Chatbot = () => {
-  const [input, setInput] = useState("");
-  const [recommendations, setRecommendations] = useState([]);
+const Chatbot = ({ chatData, setChatData }) => {
+  const { input, recommendations } = chatData;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -14,7 +13,7 @@ const Chatbot = () => {
 
     try {
       const res = await axios.post("/api/recommendations", { input });
-      setRecommendations(res.data);
+      setChatData({ ...chatData, recommendations: res.data });
     } catch (error) {
       console.error("Error fetching recommendations:", error);
     }
@@ -49,7 +48,7 @@ const Chatbot = () => {
           type="text"
           placeholder="What are you looking for?"
           value={input}
-          onChange={(e) => setInput(e.target.value)}
+          onChange={(e) => setChatData({ ...chatData, input: e.target.value })}
           className="flex-1 p-2 border border-gray-300 rounded-l focus:outline-none"
         />
         <button

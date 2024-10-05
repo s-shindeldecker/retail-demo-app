@@ -4,18 +4,30 @@ import Sidebar from '../components/Sidebar';
 import ProductList from '../components/ProductList';
 import shoes from '../data/shoes.json';
 import clothes from '../data/clothes.json';
-import {useFlags} from 'launchdarkly-react-client-sdk';
+import { useFlags } from 'launchdarkly-react-client-sdk';
 import Head from 'next/head';
 import Promotion from '../components/Promotion';
+import { useLDClient } from 'launchdarkly-react-client-sdk';
+import { useEffect } from 'react';
 
 const Home = () => {
   const allProducts = [...shoes, ...clothes];
   const { newPromoBanner } = useFlags();
+  const ldClient = useLDClient();
+
+  useEffect(() => {
+    const handlePageLoad = () => {
+      ldClient?.track("homepageAccessed");
+      ldClient?.flush();
+    };
+
+    handlePageLoad();
+  }, []);
 
   return (
     <Layout>
       <Head>
-        <title>RetailApp - Home</title>
+        <title>Retail App</title>
         <meta
           name="description"
           content="Your one-stop shop for shoes and clothes."
