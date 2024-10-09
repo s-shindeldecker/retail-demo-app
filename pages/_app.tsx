@@ -24,7 +24,7 @@ if (typeof window !== "undefined") {
       appName: "Retail Demo App",
     },
     device: {
-      key: device,
+      key: device + uuidv4().slice(0,10),
       name: device,
       operating_system: operatingSystem,
       platform: device,
@@ -33,6 +33,7 @@ if (typeof window !== "undefined") {
       key: Intl.DateTimeFormat().resolvedOptions().timeZone,
       name: Intl.DateTimeFormat().resolvedOptions().timeZone,
       timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      country: Intl.DateTimeFormat().resolvedOptions().timeZoneName
     },
     audience: {
       key: uuidv4().slice(0, 10),
