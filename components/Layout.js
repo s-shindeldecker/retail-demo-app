@@ -13,8 +13,9 @@ const Layout = ({ children }) => {
   const { notification } = useContext(CartContext);
   const client = useLDClient();
 
-  let enableChatbot = client.variation('chatbot', client.getContext(), 'false');
-console.log('Chatbot functionality' + enableChatbot)
+  let enableAIAssistant = client.variation('enable-ai-assistant', client.getContext(), 'false');
+  console.log('AI Assistant functionality:', enableAIAssistant);
+  
   return (
     <>
       <Navbar onCartClick={() => setIsCartOpen(true)} />
@@ -22,9 +23,8 @@ console.log('Chatbot functionality' + enableChatbot)
         {children}
       </div>
       <Footer />
-      {/* Chatbot Button */}
-      
-      {enableChatbot === true && <ChatbotButton />}
+      {/* AI Assistant Button */}
+      {enableAIAssistant === true && <ChatbotButton />}
       {/* Cart Drawer */}
       <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
       {/* Notification */}

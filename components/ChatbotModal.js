@@ -6,15 +6,36 @@ import { motion } from 'framer-motion';
 
 const ChatbotModal = ({ onClose }) => {
   const [chatData, setChatData] = useState(() => {
-    // Retrieve saved chat data from session storage
-    const savedData = sessionStorage.getItem('chatData');
-    return savedData ? JSON.parse(savedData) : { input: "", recommendations: [] };
+    // Only retrieve saved chat data if it exists and we're not in a fresh page load
+    if (typeof window !== 'undefined' && !window.performance.getEntriesByType('navigation')[0]?.type.includes('reload')) {
+      const savedData = sessionStorage.getItem('chatData');
+      return savedData ? JSON.parse(savedData) : { 
+        input: "", 
+        recommendations: [],
+        messages: []
+      };
+    }
+    return { 
+      input: "", 
+      recommendations: [],
+      messages: []
+    };
   });
 
   // Save chat data to session storage whenever it changes
   useEffect(() => {
     sessionStorage.setItem('chatData', JSON.stringify(chatData));
   }, [chatData]);
+
+  // Clear chat data on page refresh
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      sessionStorage.removeItem('chatData');
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+  }, []);
 
   // Close modal on Escape key press
   useEffect(() => {
@@ -26,6 +47,11 @@ const ChatbotModal = ({ onClose }) => {
     document.addEventListener('keydown', handleEscape);
     return () => document.removeEventListener('keydown', handleEscape);
   }, [onClose]);
+
+  const handleChatDataChange = (newData) => {
+    console.log('Chat data changing to:', newData);
+    setChatData(newData);
+  };
 
   return createPortal(
     <div className="fixed inset-0 z-50 flex items-end justify-end pb-24 mr-6 ml-6">
@@ -63,7 +89,7 @@ const ChatbotModal = ({ onClose }) => {
           </svg>
         </button>
         {/* Chatbot Component */}
-        <Chatbot chatData={chatData} setChatData={setChatData} />
+        <Chatbot chatData={chatData} setChatData={handleChatDataChange} />
       </motion.div>
     </div>,
     document.body
